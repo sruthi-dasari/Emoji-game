@@ -1,0 +1,35 @@
+.navbar-container {
+  display: flex;
+  padding: 10px;
+}
+
+.branding-container {
+  display: flex;
+}
+
+.game-logo {
+  height: 20px;
+  width: 20px;
+}
+
+.game-name {
+  font-size: 14px;
+  font-family: 'Roboto';
+  color: #ffffff;
+}
+
+.score-container {
+  display: flex;
+}
+
+.score-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-family: 'Roboto';
+}
+
+.totalScore-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-family: 'Roboto';
+}
