@@ -1,10 +1,14 @@
 .navbar-container {
   display: flex;
+  justify-content: space-between;
   padding: 10px;
+  background-color: #ffffff33;
 }
 
 .branding-container {
   display: flex;
+  align-items: center;
+  margin-left: 30px;
 }
 
 .game-logo {
@@ -13,19 +17,21 @@
 }
 
 .game-name {
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Roboto';
   color: #ffffff;
 }
 
 .score-container {
   display: flex;
+  margin-right: 30px;
 }
 
 .score-title {
   color: #ffffff;
   font-size: 13px;
   font-family: 'Roboto';
+  margin-right: 10px;
 }
 
 .totalScore-title {
