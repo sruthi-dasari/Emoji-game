@@ -1,57 +1,34 @@
 import './index.css'
 
 const WinOrLoseCard = props => {
-  const {score, resetScore} = props
-
-  let authButton
+  const {score, resetGame, isWon} = props
 
   const onClickPlayAgain = () => {
-    resetScore()
+    resetGame(score)
   }
 
-  if (score === 12) {
-    authButton = (
-      <div className="Win-card-container">
-        <img
-          className="win-lose-img"
-          src="https://assets.ccbp.in/frontend/react-js/won-game-img.png"
-          alt="win img"
-        />
-        <h1 className="win-lose-text">You Won</h1>
-        <p className="score-title-text">Best Score</p>
-        <h1 className="score-text">{score}/12</h1>
-        <button
-          className="play-again-btn"
-          type="button"
-          onClick={onClickPlayAgain}
-        >
-          Play Again
-        </button>
-      </div>
-    )
-  } else {
-    authButton = (
-      <div className="Lose-card-container">
-        <img
-          className="win-lose-img"
-          src="https://assets.ccbp.in/frontend/react-js/lose-game-img.png"
-          alt="lose img"
-        />
-        <h1 className="win-lose-text">You Lose</h1>
-        <p className="score-title-text">Score</p>
-        <h1 className="score-text">{score}/12</h1>
-        <button
-          className="play-again-btn"
-          type="button"
-          onClick={onClickPlayAgain}
-        >
-          Play Again
-        </button>
-      </div>
-    )
-  }
+  const WIN_IMG = 'https://assets.ccbp.in/frontend/react-js/won-game-img.png'
+  const LOSE_IMG = 'https://assets.ccbp.in/frontend/react-js/lose-game-img.png'
 
-  return <div className="WinOrLoseCard-container">{authButton}</div>
+  const imgUrl = isWon ? WIN_IMG : LOSE_IMG
+  const winLoseText = isWon ? 'You Won' : 'You Lose'
+  const scoreTitleText = isWon ? 'Best Score' : 'Score'
+
+  return (
+    <div className="Win-lose-card-container">
+      <img className="win-lose-img" src={imgUrl} alt="win or lose" />
+      <h1 className="win-lose-text">{winLoseText}</h1>
+      <p className="score-title-text">{scoreTitleText}</p>
+      <h1 className="score-text">{score}/12</h1>
+      <button
+        className="play-again-btn"
+        type="button"
+        onClick={onClickPlayAgain}
+      >
+        Play Again
+      </button>
+    </div>
+  )
 }
 
 export default WinOrLoseCard
