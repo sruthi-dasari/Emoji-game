@@ -1,12 +1,11 @@
 import './index.css'
 
 const EmojiCard = props => {
-  const {emojiDetails, updateScore, shuffleEmojis} = props
+  const {emojiDetails, clickEmoji} = props
   const {emojiName, emojiUrl, id} = emojiDetails
 
   const onClickEmoji = () => {
-    updateScore(id)
-    shuffleEmojis()
+    clickEmoji(id)
   }
 
   return (
