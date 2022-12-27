@@ -1,11 +1,10 @@
 .list-item-container {
   list-style: none;
-  border-radius: 10px;
-  border-color: #ffffff;
-  border-width: 2px;
-  padding: 20px;
+  border-radius: 15px;
+  border: 3px solid #ffffff30;
+  padding: 15px;
   background-color: #ffffff33;
-  margin: 10px;
+  margin: 5px;
 }
 
 .emoji-btn {
@@ -14,7 +13,7 @@
 }
 
 .emoji-img {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
 }
