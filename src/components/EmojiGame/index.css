@@ -1,15 +1,21 @@
 .app-container {
   background-image: linear-gradient(to bottom, #9796f0, #fbc7d4);
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .emojigame-container {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
 }
 
 .emojicards-container {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   padding-left: 0px;
+  min-width: 200px;
 }
