@@ -1,7 +1,7 @@
 import './index.css'
 
 const NavBar = props => {
-  const {score, totalScore} = props
+  const {currentScore, totalScore, isGameInProgress} = props
 
   return (
     <div className="navbar-container">
@@ -13,10 +13,12 @@ const NavBar = props => {
         />
         <h1 className="game-name">Emoji Game</h1>
       </div>
-      <div className="score-container">
-        <p className="score-title">Score: {score}</p>
-        <p className="totalScore-title">Top Score: {totalScore}</p>
-      </div>
+      {isGameInProgress && (
+        <div className="score-container">
+          <p className="score-title">Score: {currentScore}</p>
+          <p className="totalScore-title">Top Score: {totalScore}</p>
+        </div>
+      )}
     </div>
   )
 }
