@@ -3,84 +3,95 @@ import './index.css'
 import EmojiCard from '../EmojiCard'
 import NavBar from '../NavBar'
 import WinOrLoseCard from '../WinOrLoseCard'
-import {PassThrough} from 'stream'
 
 class EmojiGame extends Component {
   state = {
-    score: 0,
     totalScore: 0,
-    previoslyClickedList: [],
-    gameEnd: false,
-    shuffledEmojisList: [],
+    clickedEmojisList: [],
+    isGameInProgress: true,
   }
 
-  shuffleEmojis = () => {
-    const shuffledEmojisList = () => {
-      const {emojisList} = this.props
-      return emojisList.sort(() => Math.random() - 0.5)
+  finishGameAndSetTopScore = currentScore => {
+    const {totalScore} = this.state
+
+    if (currentScore > totalScore) {
+      this.setState({totalScore: currentScore, isGameInProgress: false})
     }
-
-    this.setState({shuffledEmojisList})
   }
 
-  resetScore = () => {
-    this.setState({score: 0})
-  }
+  clickEmoji = id => {
+    const {clickedEmojisList} = this.state
+    const clickedEmojisLength = clickedEmojisList.length
+    const isEmojiPresent = clickedEmojisList.includes(id)
 
-  updateScore = clickedId => {
-    const {previoslyClickedList} = this.state
-
-    if (previoslyClickedList.length() === 0) {
-      this.setState(prevState => ({
-        previoslyClickedList: [...prevState.previoslyClickedList, clickedId],
-      }))
-    }
-
-    const isEmojiRepeated = previoslyClickedList.some(id => clickedId === id)
-
-    if (isEmojiRepeated) {
-      const {score, totalScore, gameEnd} = this.state
-
-      if (score > totalScore) {
-        this.setState({totalScore: score})
-      }
-
-      this.setState({gameEnd: true})
+    if (isEmojiPresent) {
+      this.finishGameAndSetTopScore(clickedEmojisLength)
     } else {
-      this.setState(prevState => ({score: prevState.score + 1}))
       this.setState(prevState => ({
-        previoslyClickedList: [...prevState.previoslyClickedList, clickedId],
+        clickedEmojisList: [...prevState.clickedEmojisList, id],
       }))
     }
+  }
+
+  getShuffledEmojisList = () => {
+    const {emojisList} = this.props
+    return emojisList.sort(() => Math.random() - 0.5)
+  }
+
+  renderEmojisList = () => {
+    const shuffledEmojisList = this.getShuffledEmojisList()
+
+    return (
+      <ul className="emojicards-container">
+        {shuffledEmojisList.map(eachEmoji => (
+          <EmojiCard
+            emojiDetails={eachEmoji}
+            key={eachEmoji.id}
+            clickEmoji={this.clickEmoji}
+          />
+        ))}
+      </ul>
+    )
+  }
+
+  resetGame = () => {
+    const {totalScore, clickedEmojisList} = this.state
+    this.setState({clickedEmojisList: [], isGameInProgress: true, totalScore})
+    if (clickedEmojisList.length > totalScore) {
+      const topScore = clickedEmojisList.length
+      this.setState({
+        totalScore: topScore,
+      })
+    }
+  }
+
+  renderScoreCard = () => {
+    const {emojisList} = this.props
+    const {clickedEmojisList} = this.state
+
+    const isWon = emojisList.length === clickedEmojisList.length
+
+    return (
+      <WinOrLoseCard
+        isWon={isWon}
+        score={clickedEmojisList.length}
+        resetGame={this.resetGame}
+      />
+    )
   }
 
   render() {
-    const {emojisList} = this.props
-    const {score, totalScore, gameEnd, shuffledEmojisList} = this.state
-
-    let authButton
-
-    if (score === 12) {
-      authButton = <WinOrLoseCard score={score} resetScore={this.resetScore} />
-    } else if (gameEnd === true) {
-      authButton = <WinOrLoseCard score={score} resetScore={this.resetScore} />
-    }
+    const {totalScore, isGameInProgress, clickedEmojisList} = this.state
 
     return (
       <div className="app-container">
-        <NavBar score={score} totalScore={totalScore} />
+        <NavBar
+          currentScore={clickedEmojisList.length}
+          totalScore={totalScore}
+          isGameInProgress={isGameInProgress}
+        />
         <div className="emojigame-container">
-          {authButton}
-          <ul className="emojicards-container">
-            {shuffledEmojisList.map(eachEmoji => (
-              <EmojiCard
-                emojiDetails={eachEmoji}
-                key={eachEmoji.id}
-                updateScore={this.updateScore}
-                shuffleEmojis={this.shuffleEmojis}
-              />
-            ))}
-          </ul>
+          {isGameInProgress ? this.renderEmojisList() : this.renderScoreCard()}
         </div>
       </div>
     )
