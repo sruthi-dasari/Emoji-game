@@ -26,6 +26,12 @@ class EmojiGame extends Component {
 
     if (isEmojiPresent) {
       this.finishGameAndSetTopScore(clickedEmojisLength)
+    } else if (clickedEmojisLength === 11) {
+      console.log('Clicked 12th emoji')
+      this.setState(prevState => ({
+        clickedEmojisList: [...prevState.clickedEmojisList, id],
+        isGameInProgress: false,
+      }))
     } else {
       this.setState(prevState => ({
         clickedEmojisList: [...prevState.clickedEmojisList, id],
@@ -40,7 +46,6 @@ class EmojiGame extends Component {
 
   renderEmojisList = () => {
     const shuffledEmojisList = this.getShuffledEmojisList()
-
     return (
       <ul className="emojicards-container">
         {shuffledEmojisList.map(eachEmoji => (
@@ -56,18 +61,23 @@ class EmojiGame extends Component {
 
   resetGame = () => {
     const {totalScore, clickedEmojisList} = this.state
-    this.setState({clickedEmojisList: [], isGameInProgress: true, totalScore})
+
     if (clickedEmojisList.length > totalScore) {
       const topScore = clickedEmojisList.length
       this.setState({
         totalScore: topScore,
       })
+    } else {
+      this.setState({totalScore})
     }
+    this.setState({clickedEmojisList: [], isGameInProgress: true})
   }
 
   renderScoreCard = () => {
+    console.log('Entered render score card')
     const {emojisList} = this.props
     const {clickedEmojisList} = this.state
+    console.log(clickedEmojisList.length)
 
     const isWon = emojisList.length === clickedEmojisList.length
 
@@ -81,7 +91,9 @@ class EmojiGame extends Component {
   }
 
   render() {
+    console.log('Render called')
     const {totalScore, isGameInProgress, clickedEmojisList} = this.state
+    console.log(`clickedEmojisList length: ${clickedEmojisList.length}`)
 
     return (
       <div className="app-container">
