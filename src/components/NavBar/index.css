@@ -39,3 +39,28 @@
   font-size: 13px;
   font-family: 'Roboto';
 }
+
+@media screen and (min-width: 768px) {
+  .navbar-container {
+    padding: 20px;
+  }
+
+  .game-logo {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+  }
+
+  .game-name {
+    font-size: 22px;
+  }
+
+  .score-title {
+    font-size: 23px;
+    margin-right: 20px;
+  }
+
+  .totalScore-title {
+    font-size: 23px;
+  }
+}
