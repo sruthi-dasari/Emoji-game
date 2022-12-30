@@ -19,7 +19,7 @@ const WinOrLoseCard = props => {
       <img className="win-lose-img" src={imgUrl} alt="win or lose" />
       <h1 className="win-lose-text">{winLoseText}</h1>
       <p className="score-title-text">{scoreTitleText}</p>
-      <h1 className="score-text">{score}/12</h1>
+      <p className="score-text">{score}/12</p>
       <button
         className="play-again-btn"
         type="button"
